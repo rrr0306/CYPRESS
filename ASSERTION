@@ -59,7 +59,7 @@ describe('ASSERTION IN CYPRESS', () => {
         //cy.xpath("//a").should('have.length','5') 
 
         //input and check the input value is correct
-        cy.get("input[placeholder='Username']").type('Admin')
+        cy.get("input[placeholder='Username']").type('Admin')//INPUT BOX
         cy.get("input[placeholder='Username']").should('have.value','Admin')
     
           })
