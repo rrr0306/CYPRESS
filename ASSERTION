@@ -1,0 +1,92 @@
+
+
+describe('ASSERTION IN CYPRESS', () => {
+
+    it('IMPLICIT ASSERTION-type 1', () => {
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+        cy.url().should('include','orangehrmlive.com')
+        cy.url().should('eq','https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+        cy.url().should('contains','opensource')
+        
+            
+
+})
+
+   it('IMPLICIT ASSERTION-type 2', () => {
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    cy.url().should('include','orangehrmlive.com').should('eq','https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    .should('contain','opensource')
+    
+        
+})
+
+    it('IMPLICIT ASSERTION-type 3', () => {
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    cy.url().should('include','orangehrmlive.com').and('eq','https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    .and('contain','opensource')
+    
+        
+
+      })
+
+     it('IMPLICIT ASSERTION-type 3', () => {
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    cy.url().should('include','orangehrmlive.com').and('eq','https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    .and('not.contain','qaoncloud')
+    
+        
+
+      })
+
+      it('IMPLICIT ASSERTION-type 4', () => {
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+        //cehck the title
+    
+        cy.title().should('include','Orange').and('eq','OrangeHRM')
+        .and('contain','HRM')
+
+        //check the element visiblility and existence
+        
+        cy.get('.orangehrm-login-logo > img').should('be.visible')
+        cy.get('.orangehrm-login-logo > img').should('exist')
+          
+        //checking No of links 
+        //cy.xpath("//a").should('have.length','5') 
+
+        //input and check the input value is correct
+        cy.get("input[placeholder='Username']").type('Admin')
+        cy.get("input[placeholder='Username']").should('have.value','Admin')
+    
+          })
+
+          //Explicit Assertion
+
+          it.only('EXPLICIT ASSERTION-type 4', () => {
+            cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    
+            cy.get("input[placeholder='Username']").type('Admin')
+            cy.get("input[placeholder='Username']").should('have.value','Admin')
+            cy.get("input[placeholder='Password']").type('admin123')
+            cy.get("button[type='submit']").click()
+
+            let expName='manda user';
+            cy.get(".oxd-userdropdown-name").then ( (x) =>{
+
+              let actName =x.text()
+
+              //BDD STYLE APPROACH
+              expect(actName).to.equal(expName)
+              expect(actName).to.not.equal(expName)
+
+              //TDD STYLE APPROACH
+              assert.equal(actName,expName)
+              assert.not.equal(actName,expName)
+            })
+        
+              })
+})
