@@ -1,1 +1,36 @@
+describe('Checkbox Radio Button Elements Test', () => {
 
+    it('test1-Verify title', () => {
+        cy.visit('https://www.ironspider.ca/forms/checkradio.htm')
+        cy.title().should('equal', 'Checkboxes & Radio Buttons')
+    })
+    it('test1-Verify title-negative', () => {
+        cy.visit('https://www.ironspider.ca/forms/checkradio.htm')
+           // Check checkbox
+        cy.get('body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > blockquote:nth-child(17) > form:nth-child(1)')
+        cy.get('[value="red"]').check()
+        cy.wait(2000)
+        cy.get('[value="orange"]').check()
+        cy.wait(2000)
+        cy.get('[value="purple"]').check()
+        cy.wait(2000)
+        cy.get(':nth-child(33) > form > :nth-child(7)').should('be.visible').click()
+
+
+    })
+    it('drop down testing :002',() => {
+
+        cy.visit('https://www.lovevivah.com/')
+        cy.get('a > #HP_Banner_Register_CTA').click()
+        cy.wait(3000)
+        cy.get('#email').type('02.revathi@gmail.com')
+        cy.get('#password').type('flip12345')
+        cy.get('#phone').type('6385420345')
+        cy.wait(2000)
+        cy.get('#country').select('Colombia(+57)')
+        cy.wait(2000)
+        cy.get('#profile_for').invoke('show')
+        cy.wait(2000)
+        cy.get('#profile_for').select('Friend')
+    }) 
+})
