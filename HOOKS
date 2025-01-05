@@ -1,19 +1,20 @@
+
 describe('Hooks Test', function () {
     before(function () {
         cy.wait(1000)
-      cy.log("runs once before the first test in this block");
+      cy.log("runs once before the first block");
     })
   
     after(function () {
-      cy.log("runs once after the last test in this block");
+      cy.log("runs once after the last it block");
     })
   
     beforeEach(function () {
-      cy.log("runs before each test in this block");
+      cy.log("runs before each it block");
     })
   
     afterEach(function () {
-      cy.log("runs after each test in this block")
+      cy.log("runs after each it block")
     })
   
     it('Example test1', () => {
