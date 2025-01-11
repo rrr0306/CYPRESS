@@ -1,0 +1,11 @@
+describe('CUSTOM COMMAND TEST',function(){
+    
+    it('Login test using custome command',function()
+    {
+
+        cy.loginnyccfb('revathi@auxosolutions.io','Sakthi12345/')
+        cy.title().should('be.equal','Unqork')
+      
+    })
+}
+)
