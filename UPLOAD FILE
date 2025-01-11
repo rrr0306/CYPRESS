@@ -1,0 +1,21 @@
+describe('FILE UPLOAD TEST', function () {
+   
+    it('UPLOAD SINGLE FILE ',()=>
+    {
+        cy.visit('https://the-internet.herokuapp.com/upload')
+        cy.get('#file-upload').attachFile('2602 11.png');
+    })
+
+    it('UPLOAD MUTIPLE FILES',()=>
+        {
+            cy.visit('https://the-internet.herokuapp.com/upload')
+            cy.get('#file-upload').attachFile(['2602 11.png','fix.json']);
+        })
+
+        it('UPLOAD BY DRAG AND DROP',()=>
+            {
+                cy.visit('https://the-internet.herokuapp.com/upload')
+               cy.get('#drag-drop-upload').attachFile('2602 11.png',{ subjectType: 'drag-n-drop'});
+            }) 
+    
+  })
