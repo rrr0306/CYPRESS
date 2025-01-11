@@ -1,0 +1,119 @@
+/*describe('Handling web/HTML table in cypress',( () => {
+    beforeEach('Login',() => {
+     /*cy.visit("https://demo.opencart.com/admin/");
+     cy.get("#input-username").type("demo");
+     cy.get("input-password").type("demo");
+     cy.get("button[type='submit']").click();
+     cy.get("#menu-customer>a").click();
+     cy.get("#menu-customer>ul>li:first-child").click();
+     cy.visit("https://demoqa.com/webtables");
+     Cypress.on('uncaught:exception', (err, runnable) => {
+        // returning false here prevents Cypress from
+        // failing the test
+        return false
+      })
+
+
+          
+    })
+    it.only('Check No of Rows And Columsn', () => {
+         
+     })  
+    } )) */
+     describe('DemoQA Web Tables Tests', () => {
+        beforeEach(() => {
+          cy.visit('https://demoqa.com/webtables');
+          Cypress.on('uncaught:exception', (err, runnable) => {
+            // returning false here prevents Cypress from
+            // failing the test
+            return false
+          })
+    
+        });
+      
+        it('Should verify table data', () => {
+          // Verify the header of the table
+          cy.get('.rt-thead.-header .rt-th')
+            .then(($headers) => {
+              const headerTexts = [...$headers].map((header) => header.innerText.trim());
+              expect(headerTexts).to.deep.equal(['First Name', 'Last Name', 'Age', 'Email', 'Salary', 'Department', 'Action']);
+            });
+      
+          // Verify the first row of the table
+          cy.get('.rt-tbody .rt-tr-group:nth-child(1) .rt-td')
+            .then(($cells) => {
+              const rowData = [...$cells].map((cell) => cell.innerText.trim());
+              expect(rowData).to.include('Cierra');
+            });
+        });
+      
+        it('Should add a new record to the table', () => {
+          // Open the form to add a new record
+          cy.get('#addNewRecordButton').click();
+      
+          // Fill out the form
+          cy.get('#firstName').type('John');
+          cy.get('#lastName').type('Doe');
+          cy.get('#userEmail').type('johndoe@example.com');
+          cy.get('#age').type('30');
+          cy.get('#salary').type('50000');
+          cy.get('#department').type('Engineering');
+      
+          // Submit the form
+          cy.get('#submit').click();
+      
+          // Verify the new record is added
+          cy.get('.rt-tbody').should('contain', 'John').and('contain', 'Doe');
+        });
+      
+        it('Should edit an existing record', () => {
+          // Click the edit button for the first row
+          cy.get('.rt-tbody .rt-tr-group:nth-child(1) .action-buttons [title="Edit"]').click();
+      
+          // Modify the email field
+          cy.get('#userEmail').clear().type('updatedemail@example.com');
+      
+          // Submit the changes
+          cy.get('#submit').click();
+      
+          // Verify the email is updated
+          cy.get('.rt-tbody .rt-tr-group:nth-child(1)').should('contain', 'updatedemail@example.com');
+        });
+      
+        it('Should delete a record', () => {
+          // Delete the first row
+          cy.get('.rt-tbody .rt-tr-group:nth-child(1) .action-buttons [title="Delete"]').click();
+      
+          // Verify the record is removed
+          cy.get('.rt-tbody .rt-tr-group:nth-child(1)').should('not.contain', 'Cierra');
+        });
+      
+        it('Should filter table by age', () => {
+          // Use the search box to filter by age
+          cy.get('#searchBox').type('39');
+      
+          // Verify filtered results
+          cy.get('.rt-tbody .rt-tr-group').should('have.length', 10).and('contain', '39');
+        });
+      });
+
+      describe('WebTables Row and Column Count', () => {
+        it('Should count the number of rows and columns in the table', () => {
+          // Visit the URL
+          cy.visit('https://demoqa.com/webtables');
+      
+          // Find the rows in the table (excluding the header row)
+          cy.get('.ReactTable .rt-tr-group')
+            .then((rows) => {
+              const rowCount = rows.length;
+              cy.log(`Number of rows: ${rowCount}`);
+            });
+      
+          // Find the columns in the header
+          cy.get('.ReactTable .rt-thead .rt-th')
+            .then((columns) => {
+              const columnCount = columns.length;
+              cy.log(`Number of columns: ${columnCount}`);
+            });
+        });
+      });
